@@ -6,6 +6,12 @@ import kotlinx.coroutines.runBlocking
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
+/**
+ * runBlocking is used as a bridge between regular and suspend functions,
+ * between blocking and non-blocking worlds.
+ * It works as an adaptor for starting the top-level main coroutine
+ * and is intended primarily to be used in main functions and in tests.
+ */
 fun main() = runBlocking {      // this: CoroutineScope
     launch {                // launch a new coroutine and continue
         doWorld()
