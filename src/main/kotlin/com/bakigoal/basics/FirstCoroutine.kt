@@ -13,6 +13,10 @@ fun main() = runBlocking {      // this: CoroutineScope
     println("Hello")        // main coroutine continues while a previous one is delayed
 }
 
+/**
+ * Suspending functions can be used inside coroutines just like regular functions,
+ * but their additional feature is that they can, in turn, use other suspending functions (like delay)
+ */
 private suspend fun doWorld() {
     // delay is a special suspending function.
     // It suspends the coroutine for a specific time.
