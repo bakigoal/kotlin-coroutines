@@ -13,7 +13,7 @@ fun simpleBlock(): Sequence<Int> = sequence { // sequence builder
     }
 }
 
-suspend fun simpleAsync(): Flow<Int> = flow {
+fun simpleAsync(): Flow<Int> = flow {
     for (i in 1..5) {
         delay(1000) // pretend we are doing something asynchronous here
         emit(i) // yield next value
