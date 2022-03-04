@@ -1,20 +1,21 @@
 package com.bakigoal.basics
 
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
     val time = measureTimeMillis {
-        val one = doSomethingUsefulOne()
-        val two = async { doSomethingUsefulTwo() }
-        val three = async(start = CoroutineStart.LAZY) { doSomethingUsefulThree() }
-        three.start()
-        println("The answer is ${one + two.await() + three.await()}")
+        println("The answer is ${concurrentSum()}")
     }
     println("Completed in $time ms")
+}
+
+private suspend fun concurrentSum() = coroutineScope {
+    val one = async { doSomethingUsefulOne() }
+    val two = async(start = CoroutineStart.LAZY) { doSomethingUsefulTwo() }
+    two.start()
+    val three = doSomethingUsefulThree()
+    one.await() + two.await() + three
 }
 
 suspend fun doSomethingUsefulOne(): Int {
